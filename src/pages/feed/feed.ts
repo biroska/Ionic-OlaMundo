@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams, LoadingController} from 'ionic-angular';
 import {MovieProvider} from "../../providers/movie/movie";
 
 /**
@@ -19,7 +19,8 @@ export class FeedPage {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              private movieProvider: MovieProvider ) {
+              public loadingController: LoadingController,
+              private movieProvider: MovieProvider) {
   }
 
   public feed_object = {
@@ -33,19 +34,56 @@ export class FeedPage {
 
   public lista_filmes = new Array<any>();
 
-  ionViewDidLoad() {
+  private loading;
+  private refresher;
+  private isRefreshing: boolean = false;
+
+  ionViewDidEnter() {
     console.log('ionViewDidLoad FeedPage');
+    this.carregarFilmes();
+  }
 
-    this.movieProvider.getLatestMovies().subscribe( value => {
-                                                            console.log(value);
-                                                            const response = (value as any);
-                                                            this.lista_filmes = response.results;
-                                                          },
-                                                    error1 => {
-                                                          console.log(error1);
-                                                          }
-                                                  );
+  private carregarFilmes() {
 
+    this.abrirCarregando();
+    this.movieProvider.getLatestMovies().subscribe(
+      value => {
+        const response = (value as any);
+        this.lista_filmes = response.results;
+        console.log(value);
+        this.fecharCarregando();
+      },
+      error1 => {
+        console.log(error1);
+        this.fecharCarregando();
+      }
+    );
+  }
+
+  abrirCarregando() {
+    console.log("AbrirCarregando");
+    this.loading = this.loadingController.create({
+      content: "Please wait...."
+    });
+    this.loading.present();
+  }
+
+  fecharCarregando() {
+    console.log("FecharCarregando");
+    this.loading.dismiss();
+
+    if ( this.isRefreshing ){
+      this.refresher.complete();
+      this.isRefreshing = false;
+    }
+
+  };
+
+  doRefresh( refresher ) {
+    this.refresher = refresher;
+    this.isRefreshing = true;
+
+    this.carregarFilmes();
   }
 
 }
