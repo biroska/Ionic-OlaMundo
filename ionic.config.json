@@ -1,5 +1,7 @@
 {
   "name": "olaMundo",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "ionic-angular"
 }

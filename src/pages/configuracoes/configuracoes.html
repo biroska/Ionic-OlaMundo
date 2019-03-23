@@ -1,0 +1,27 @@
+
+<ion-menu side="start" menuId="first" [content]="content">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>Configurações</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <button ion-item (click) = "openPerfilPage()" >
+        <ion-icon name="contact"></ion-icon>
+        Meu Cadastro
+      </button>
+      <button ion-item (click) = "openSobrePage()" >
+        <ion-icon name="information-circle"></ion-icon>
+        Sobre
+      </button>
+      <button ion-item (click) = "openLogoutPage()" >
+        <ion-icon name="exit"></ion-icon>
+        Sair
+      </button>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+
+<ion-nav id="nav" #content [root]="rootPage"></ion-nav>
