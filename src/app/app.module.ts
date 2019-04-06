@@ -16,6 +16,8 @@ import {MovieProvider} from '../providers/movie/movie';
 import {PerfilPageModule} from "../pages/perfil/perfil.module";
 import {SobrePageModule} from "../pages/sobre/sobre.module";
 import {ConfiguracoesPageModule} from "../pages/configuracoes/configuracoes.module";
+import {FilmeDetalhesPage} from "../pages/filme-detalhes/filme-detalhes";
+import {FilmeDetalhesPageModule} from "../pages/filme-detalhes/filme-detalhes.module";
 
 @NgModule({
   declarations: [
@@ -32,6 +34,7 @@ import {ConfiguracoesPageModule} from "../pages/configuracoes/configuracoes.modu
     ConfiguracoesPageModule,
     PerfilPageModule ,
     SobrePageModule,
+    FilmeDetalhesPageModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { FeedPage } from './feed';
+import {FilmeDetalhesPageModule} from "../filme-detalhes/filme-detalhes.module";
 
 @NgModule({
   declarations: [
@@ -8,6 +9,7 @@ import { FeedPage } from './feed';
   ],
   imports: [
     IonicPageModule.forChild(FeedPage),
+    FilmeDetalhesPageModule
   ],
 })
 export class FeedPageModule {}

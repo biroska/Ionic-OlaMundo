@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {Constants} from "../../shared/Constants";
 
 /*
   Generated class for the MovieProvider provider.
@@ -10,19 +11,18 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class MovieProvider {
 
-  private apiKey = "api_key=5380d3c9c1becdd26c9e31d900053498";
-  private baseApiPath = "https://api.themoviedb.org/3/";
-  private latestMoviesPath = "movie/latest";
-  private topRatedMoviesPath = "movie/top_rated";
-
-  public baseImagesPath = "https://image.tmdb.org/t/p/w300/";
+  public baseImagesPath = Constants.BASE_IMAGES_PATH;
 
   constructor(public http: HttpClient) {
     console.log('Hello MovieProvider Provider');
   }
 
   getLatestMovies() {
-    return this.http.get( this.baseApiPath + this.topRatedMoviesPath + "?" + this.apiKey + "&language=en-US&page=1" );
+    return this.http.get( Constants.BASE_API_PATH + Constants.TOP_RATED_MOVIES_PATH + "?" + Constants.API_KEY + "&language=en-US&page=1" );
   }
 
+  getMovieDetail( id ) {
+    return this.http.get( Constants.BASE_API_PATH + Constants.DETAIL_OF_MOVIE_BY_ID + id  + "?" + Constants.API_KEY + "&language=en-US" );
+  }
 }
+

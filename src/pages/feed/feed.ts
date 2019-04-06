@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams, LoadingController} from 'ionic-angular';
 import {MovieProvider} from "../../providers/movie/movie";
+import {FilmeDetalhesPage} from "../filme-detalhes/filme-detalhes";
 
 /**
  * Generated class for the FeedPage page.
@@ -43,22 +44,11 @@ export class FeedPage {
     this.carregarFilmes();
   }
 
-  private carregarFilmes() {
-
-    this.abrirCarregando();
-    this.movieProvider.getLatestMovies().subscribe(
-      value => {
-        const response = (value as any);
-        this.lista_filmes = response.results;
-        console.log(value);
-        this.fecharCarregando();
-      },
-      error1 => {
-        console.log(error1);
-        this.fecharCarregando();
-      }
-    );
+  abrirDetalhes( filme ){
+    console.log( "Filme Object: " + filme );
+    this.navCtrl.push(FilmeDetalhesPage, {filmeId: filme.id });
   }
+
 
   abrirCarregando() {
     console.log("AbrirCarregando");
@@ -86,4 +76,20 @@ export class FeedPage {
     this.carregarFilmes();
   }
 
+  private carregarFilmes() {
+
+    this.abrirCarregando();
+    this.movieProvider.getLatestMovies().subscribe(
+      value => {
+        const response = (value as any);
+        this.lista_filmes = response.results;
+        console.log(value);
+        this.fecharCarregando();
+      },
+      error1 => {
+        console.log(error1);
+        this.fecharCarregando();
+      }
+    );
+  }
 }
