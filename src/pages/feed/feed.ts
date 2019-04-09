@@ -49,7 +49,6 @@ export class FeedPage {
     this.navCtrl.push(FilmeDetalhesPage, {filmeId: filme.id });
   }
 
-
   abrirCarregando() {
     console.log("AbrirCarregando");
     this.loading = this.loadingController.create({
