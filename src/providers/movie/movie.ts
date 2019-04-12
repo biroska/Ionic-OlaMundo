@@ -17,8 +17,11 @@ export class MovieProvider {
     console.log('Hello MovieProvider Provider');
   }
 
-  getLatestMovies() {
-    return this.http.get( Constants.BASE_API_PATH + Constants.TOP_RATED_MOVIES_PATH + "?" + Constants.API_KEY + "&language=en-US&page=1" );
+  getLatestMovies( page: number = 1) {
+    return this.http.get( Constants.BASE_API_PATH +
+                               Constants.TOP_RATED_MOVIES_PATH + "?" +
+                               Constants.PAGE_PARAM + page +"&"+
+                               Constants.API_KEY + Constants.LANGUAGE_PARAM );
   }
 
   getMovieDetail( id ) {

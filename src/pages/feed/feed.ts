@@ -38,6 +38,9 @@ export class FeedPage {
   private loading;
   private refresher;
   private isRefreshing: boolean = false;
+  public infiniteScroll;
+
+  public lastPage: number = 1;
 
   ionViewDidEnter() {
     console.log('ionViewDidLoad FeedPage');
@@ -75,13 +78,19 @@ export class FeedPage {
     this.carregarFilmes();
   }
 
-  private carregarFilmes() {
+  private carregarFilmes(newPage: boolean = false) {
 
     this.abrirCarregando();
-    this.movieProvider.getLatestMovies().subscribe(
+    this.movieProvider.getLatestMovies( this.lastPage ).subscribe(
       value => {
         const response = (value as any);
-        this.lista_filmes = response.results;
+
+        if (newPage) {
+          this.lista_filmes = this.lista_filmes.concat(response.results);
+          this.infiniteScroll.complete();
+        } else {
+          this.lista_filmes = response.results;
+        }
         console.log(value);
         this.fecharCarregando();
       },
@@ -90,5 +99,11 @@ export class FeedPage {
         this.fecharCarregando();
       }
     );
+  }
+
+  doInfiniteScroll(infiniteScroll){
+    this.lastPage++;
+    this.infiniteScroll = infiniteScroll;
+    this.carregarFilmes(true);
   }
 }
